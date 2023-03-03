@@ -4,15 +4,15 @@ export default class {
     constructor(index, bombs, onclickLeft, onclickRight) {
         this.index = index
         this.neighbors = this.#getNeighbors()
-        this.countBomb = this.#getCountBomb(bombs)
+        this.countBombs = this.#getCountBomb(bombs)
         this.status = 'default'
         this.element = this.#createElement(onclickLeft, onclickRight)
     }
 
     //приватный метод создания html-элемента с инициализаций функций на нажатия клавиш мыши
-    #createElement(left, right) { 
+    #createElement(left, right) {
         const element = el('button', { class: 'game__cell cell_default' })
-        // const element = el('button', { class: 'game__cell cell_default' }, this.countBomb) //данная строчка показывается на каждой клетке показывает количетсво бомб рядом
+        // const element = el('button', { class: 'game__cell cell_default' }, this.countBombs) //данная строчка показывается на каждой клетке показывает количетсво бомб рядом
         element.addEventListener('click', () => { left(this) })
         element.addEventListener('contextmenu', () => { right(this) })
         return element
@@ -21,8 +21,8 @@ export default class {
     //метод "открытия клетки"
     open() {
         this.element.classList.remove(`cell_${this.status}`)
-        if (this.countBomb == 9) this.status = 'bomb'
-        else this.status = this.countBomb
+        if (this.countBombs == 9) this.status = 'bomb'
+        else this.status = this.countBombs
         this.element.classList.add(`cell_${this.status}`)
         return true
     }

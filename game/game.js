@@ -21,20 +21,25 @@ function getBombs() { //получение массива с индексами 
 function openCell(cell, cells) { //рекурсивая функция открытия клеток
     if (cell.status != 'default') return //выход из рекурсии
     cell.open() //открытие клетки (появление цифры, означающее количество бомб рядом)
-    if (cell.countBomb == 0) { //если рядом бомб нет, то открываем соседние клетки
+    if (cell.countBombs == 0) { //если рядом бомб нет, то открываем соседние клетки
         cell.neighbors.forEach(neighbor => openCell(cells[neighbor], cells))
     }
 }
 
 function checkWin(cells) {
     return cells
-        .map(cell => cell.status) //получаемся состояния клеток
-        .every(status => status != 'default') //проверка, что никакая клетка не является неоткрытой
+        .every(cell => cell.countBombs != 9 && cell.status == cell.countBombs || cell.countBombs == 9) //проверка, что никакая клетка не является неоткрытой
 }
 
-function win(mood, timer, field) {
+function win(mood, timer, field, bombs, cells) {
     mood.cool() //меняет смайлик на "крутой"
     timer.stop() //останавливаем таймер
+    bombs.map(i => { //открываем бомбы
+        if (cells[i].status == 'flag')
+            cells[i].defuse()
+        else if (cells[i].status == 'default')
+            cells[i].open()
+    })
     const children = field.childNodes //отключаем нажание клеток
     for (let j = 0; j < children.length; j++)
         children[j].disabled = true
@@ -49,7 +54,7 @@ function startGame(counter, mood, timer, field, fromRestart) {
         function (cell) {
             if (timer.time == 0) { //первый клик
                 timer.start()
-                if (cell.countBomb == 9) { //первый клик на бомбе, 9 - бомба
+                if (cell.countBombs == 9) { //первый клик на бомбе, 9 - бомба
                     let flags = cells //сохраняет выставленные флаги
                         .filter(cell => cell.status == 'flag')
                         .map(cell => cell.index)
@@ -59,7 +64,7 @@ function startGame(counter, mood, timer, field, fromRestart) {
             }
             if (cell.status == 'default') {
                 cells.forEach(cell => { if (cell.status == 'question') cell.flag() }) //убираем все неподтвержденные вопросы
-                if (cell.countBomb != 9) openCell(cell, cells) //запускаем рекурсивную функцию открытия клеточек
+                if (cell.countBombs != 9) openCell(cell, cells) //запускаем рекурсивную функцию открытия клеточек
                 else { //проигрыш
                     cell.active() //меняем клетку на взовранную бомбу
                     mood.dead() //смайлик на грустный
@@ -78,7 +83,7 @@ function startGame(counter, mood, timer, field, fromRestart) {
                 counter.add() //добавляем счетчик бомб
                 cell.default() //меняем клетка на неоткрытую
             }
-            if (checkWin(cells)) win(mood, timer, field) //проверка победы
+            if (checkWin(cells)) win(mood, timer, field, bombs, cells) //проверка победы
         },
         function (cell) {
             if (cell.status == 'default' && counter.countBombs > 0) { //ставим флаг
@@ -91,13 +96,12 @@ function startGame(counter, mood, timer, field, fromRestart) {
                 counter.add() //добавляем счетчик бомб
                 cell.default() //меняем клетка на неоткрытую
             }
-            if (checkWin(cells)) win(mood, timer, field) //проверка победы
         }
     ))
     setChildren(field, cells.map(cell => cell.element)) //устанавливаем клетки в поле
     if (fromRestart) { //проверка перезапуска предыдущей игры
         const [index, flags] = fromRestart
-        if (cells[index].countBomb == 9) { //если после пересоздания поля на нажатой клетке опять появилась бомба
+        if (cells[index].countBombs == 9) { //если после пересоздания поля на нажатой клетке опять появилась бомба
             startGame(counter, mood, timer, field, fromRestart) //перезапуск текущей игры
             return
         }
