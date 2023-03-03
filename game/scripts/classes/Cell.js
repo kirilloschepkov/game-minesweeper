@@ -11,7 +11,8 @@ export default class {
 
     //приватный метод создания html-элемента с инициализаций функций на нажатия клавиш мыши
     #createElement(left, right) { 
-        const element = el('button', { class: 'game__cell cell_default' }, this.countBomb)
+        const element = el('button', { class: 'game__cell cell_default' })
+        // const element = el('button', { class: 'game__cell cell_default' }, this.countBomb) //данная строчка показывается на каждой клетке показывает количетсво бомб рядом
         element.addEventListener('click', () => { left(this) })
         element.addEventListener('contextmenu', () => { right(this) })
         return element
