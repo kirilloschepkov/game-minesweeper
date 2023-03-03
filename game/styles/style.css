@@ -1,0 +1,202 @@
+:root {
+    --bg: rgb(189, 189, 189);
+    --light: #fff;
+    --dark: rgb(123, 123, 123);
+}
+
+button {
+    border: none;
+}
+
+.game {
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 610px;
+    min-height: 690px;
+    background-color: var(--bg);
+    border-top: 3px solid var(--light);
+    border-right: 3px solid var(--dark);
+    border-bottom: 3px solid var(--dark);
+    border-left: 3px solid var(--light);
+    border-radius: 3px;
+}
+
+.game__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    min-height: 75px;
+    background-color: var(--bg);
+    border-top: 3px solid var(--dark);
+    border-right: 3px solid var(--light);
+    border-bottom: 3px solid var(--light);
+    border-left: 3px solid var(--dark);
+    border-radius: 3px;
+}
+
+.game__counter {
+    display: flex;
+    flex-direction: row;
+}
+
+.game__mood {
+    width: 50px;
+    height: 50px;
+    background-position: center;
+    background-size: cover;
+}
+
+.mood_smile {
+    background-image: url(../icons/smile_up.jpg);
+}
+
+.mood_smile:active {
+    background-image: url(../icons/smile_down.jpg);
+}
+
+.mood_cool {
+    background-image: url(../icons/cool.jpg);
+}
+
+.mood_shock {
+    background-image: url(../icons/shock.jpg);
+}
+
+.mood_dead {
+    background-image: url(../icons/dead.jpg);
+}
+
+.game__timer {
+    display: flex;
+    flex-direction: row;
+}
+
+.digit {
+    width: 28px;
+    height: 48px;
+    background-position: center;
+    background-size: cover;
+}
+
+.digit0 {
+    background-image: url(../icons/digit0.jpg);
+}
+
+.digit1 {
+    background-image: url(../icons/digit1.jpg);
+}
+
+.digit2 {
+    background-image: url(../icons/digit2.jpg);
+}
+
+.digit3 {
+    background-image: url(../icons/digit3.jpg);
+}
+
+.digit4 {
+    background-image: url(../icons/digit4.jpg);
+}
+
+.digit5 {
+    background-image: url(../icons/digit5.jpg);
+}
+
+.digit6 {
+    background-image: url(../icons/digit6.jpg);
+}
+
+.digit7 {
+    background-image: url(../icons/digit7.jpg);
+}
+
+.digit8 {
+    background-image: url(../icons/digit8.jpg);
+}
+
+.digit9 {
+    background-image: url(../icons/digit9.jpg);
+}
+
+.game__field {
+    display: grid;
+    grid-template-columns: repeat(16, 16fr);
+    grid-template-rows: repeat(16, 35px);
+    border-top: 3px solid var(--dark);
+    border-right: 3px solid var(--light);
+    border-bottom: 3px solid var(--light);
+    border-left: 3px solid var(--dark);
+    border-radius: 3px;
+}
+
+.game__cell {
+    background-position: center;
+    background-size: cover;
+}
+
+.cell_default {
+    background-image: url(../icons/cell_up.jpg);
+}
+
+.cell_0 {
+    background-image: url(../icons/cell_down.jpg);
+}
+
+.cell_1 {
+    background-image: url(../icons/cell_1.jpg);
+}
+
+.cell_2 {
+    background-image: url(../icons/cell_2.jpg);
+}
+
+.cell_3 {
+    background-image: url(../icons/cell_3.jpg);
+}
+
+.cell_4 {
+    background-image: url(../icons/cell_4.jpg);
+}
+
+.cell_5 {
+    background-image: url(../icons/cell_5.jpg);
+}
+
+.cell_6 {
+    background-image: url(../icons/cell_6.jpg);
+}
+
+.cell_7 {
+    background-image: url(../icons/cell_7.jpg);
+}
+
+.cell_8 {
+    background-image: url(../icons/cell_8.jpg);
+}
+
+.cell_bomb {
+    background-image: url(../icons/cell_bomb.jpg);
+}
+
+.cell_active {
+    background-image: url(../icons/cell_bomb_active.jpg);
+}
+
+.cell_defuse {
+    background-image: url(../icons/cell_bomb_defuse.jpg);
+}
+
+.cell_question {
+    background-image: url(../icons/cell_question_up.jpg);
+}
+
+.cell_question:active {
+    background-image: url(../icons/cell_question_down.jpg);
+}
+
+.cell_flag {
+    background-image: url(../icons/cell_flag.jpg);
+}
